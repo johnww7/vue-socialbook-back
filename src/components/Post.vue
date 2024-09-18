@@ -81,6 +81,15 @@ export default {
         userFeed: {
             type:Object
         }
+    },
+    mounted(){
+        this.displayFeed()
+    },
+    methods: {
+        displayFeed(){
+            console.log("Whats in my userFeed: " + JSON.stringify(this.userFeed))
+        }
     }
+
 }
 </script>

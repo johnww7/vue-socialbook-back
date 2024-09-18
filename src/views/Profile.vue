@@ -3,7 +3,7 @@
 	
 	<section>
 			<div class="feature-photo">
-				<figure><img src="src/assets/images/resources/timeline-1.jpg" alt=""></figure>
+				<figure><img v-bind:src="'/src/assets/images/resources/timeline1.jpg'" alt=""></figure>
 				<form>
 					<div class="add-btn">
 					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>

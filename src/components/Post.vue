@@ -5,8 +5,10 @@
     <!-- post header-->
     <div class="flex justify-between items-center px-4 py-3">
     <div class="flex flex-1 items-center space-x-4">
-    
-        <span class="block font-semibold "><a v-bind:href="'/profile/' + userFeed.user">@{{userFeed.user}}</a></span>
+     
+        <span class="block font-semibold ">
+            <router-link :to="{name: 'profile', params: {user_name: userFeed.user}}">@{{userFeed.user}}</router-link>
+        </span>
     </div>
     <div>
     <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>

@@ -151,7 +151,8 @@ export default {
 			console.log("username from route: " + username)
 
 			await axios
-				.get('http://127.0.0.1:8000/api/profile')
+
+				.get('http://127.0.0.1:8000/api/profile/')
 				.then(response =>{
 					console.log("what is profile: " + JSON.stringify(response))
 				})

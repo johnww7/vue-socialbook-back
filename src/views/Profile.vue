@@ -154,7 +154,13 @@ export default {
 
 				.get('http://127.0.0.1:8000/api/profile/')
 				.then(response =>{
-					console.log("what is profile: " + JSON.stringify(response))
+					console.log("what is profile: " + JSON.stringify(response.data))
+					console.log("what is user profile: " + JSON.stringify(response.data.user_profile))
+					console.log("what is user post: " + JSON.stringify(response.data.user_post))
+					console.log("what is follower count: " + JSON.stringify(response.data.follower_count))
+				
+				
+				
 				})
 				.catch(error => {
                     console.log("errors: " + error)

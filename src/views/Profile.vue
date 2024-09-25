@@ -27,7 +27,9 @@
 						<div class="col-lg-2 col-sm-3">
 							<div class="user-avatar">
 								<figure>
-									<img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" style="height: 250px; width: 100%;" alt="">
+									        <img  alt="">
+
+									<img v-bind:src="'http://127.0.0.1:8000/' + userProfile.userimage" v-bind:style="'height:250px; width: 100px;'" alt="">
 								<!--	<form class="edit-phto">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
@@ -155,9 +157,12 @@ export default {
 				.get('http://127.0.0.1:8000/api/profile/')
 				.then(response =>{
 					console.log("what is profile: " + JSON.stringify(response.data))
-					console.log("what is user profile: " + JSON.stringify(response.data.user_profile))
-					console.log("what is user post: " + JSON.stringify(response.data.user_post))
-					console.log("what is follower count: " + JSON.stringify(response.data.follower_count))
+					this.userProfile = response.data.user_profile
+					console.log("what is user profile: " + JSON.stringify(this.userProfile))
+					this.userPost = response.data.user_post
+					console.log("what is user post: " + JSON.stringify(this.userPost))
+					this.followerCount = response.data.follower_count
+					console.log("what is follower count: " + JSON.stringify(this.followerCount))
 				
 				
 				

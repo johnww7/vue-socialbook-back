@@ -71,7 +71,7 @@
 		</section><!-- top area -->
 		<section>
 			<div class="bio">
-				Bio goes here...
+				{{userProfile.bio}}
 			</div>
 		</section>
 		

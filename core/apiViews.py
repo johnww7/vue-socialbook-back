@@ -92,6 +92,34 @@ class api_profile(APIView):
             "follower_count": follower_count_serializer.data
         })
 
+class api_profile_user(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        #user_object = User.objects.get(username=request.data)
+        print('Whats user: ', request.data.user)
+        print('All users: ', User.objects.all())
+        #user_object = User.objects.get()
+        user_object = request.data.user
+        user_profile = Profile.objects.filter(user=request.data.user).get()
+        print('User profile: ', user_object)
+        user_posts = Post.objects.all()
+        #user_posts = Post.objects.filter(user=request.user)
+        print('User posts: ', user_posts)
+        follower_count = FollowersCount.objects.all()
+        #print('Follower count: ', follower_count)
+
+        user_profile_serializer = ProfileSerializer(user_profile)
+        user_posts_serializer = PostSerializer(user_posts, many=True)
+        follower_count_serializer = FollowersCountSerializer(follower_count, many=True)
+
+        return Response({
+            
+            "user_profile": user_profile_serializer.data,
+            "user_post": user_posts_serializer.data,
+            "follower_count": follower_count_serializer.data
+        })
+
 class api_user_suggestion(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):

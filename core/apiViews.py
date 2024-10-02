@@ -74,7 +74,7 @@ class api_profile(APIView):
         #user_object = User.objects.get()
         user_object = request.user
         user_profile = Profile.objects.filter(user=request.user).get()
-        print('User profile: ', user_object)
+        print('User profile: ', user_profile)
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
         print('User posts: ', user_posts)
@@ -95,14 +95,16 @@ class api_profile(APIView):
 class api_profile_user(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
+    def get(self, request, pk, format=None):
         #user_object = User.objects.get(username=request.data)
-        print('Whats user: ', request.data.user)
+        print('Whats user: ', pk)
         print('All users: ', User.objects.all())
         #user_object = User.objects.get()
-        user_object = request.data.user
-        user_profile = Profile.objects.filter(user=request.data.user).get()
-        print('User profile: ', user_object)
+        #user_object = request.data.user
+        user_object = pk
+        #user_profile = Profile.objects.filter(user=pk).get()
+        user_profile = Profile.objects.all()
+        print('User profile: ', user_profile)
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
         print('User posts: ', user_posts)

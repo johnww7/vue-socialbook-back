@@ -102,8 +102,8 @@ class api_profile_user(APIView):
         #user_object = User.objects.get()
         #user_object = request.data.user
         user_object = pk
-        #user_profile = Profile.objects.filter(user.username==pk).get()
-        user_profile = Profile.objects.all()
+        user_profile = Profile.objects.filter(user__username=pk).get()
+        #user_profile = Profile.objects.all()
         print('User profile: ', user_profile)
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
@@ -111,7 +111,7 @@ class api_profile_user(APIView):
         follower_count = FollowersCount.objects.all()
         #print('Follower count: ', follower_count)
 
-        user_profile_serializer = ProfileSerializer(user_profile, many=True)
+        user_profile_serializer = ProfileSerializer(user_profile)
         user_posts_serializer = PostSerializer(user_posts, many=True)
         follower_count_serializer = FollowersCountSerializer(follower_count, many=True)
 

@@ -4,12 +4,33 @@
 	<section>
 			<div class="feature-photo">
 				<figure><img v-bind:src="'/src/assets/images/resources/timeline1.jpg'" alt=""></figure>
-				<form>
+				<!--<form @submit.prevent="submitForm">
+                    <input type="text" v-model="username" placeholder="Username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                    <input type="password" v-model="password" placeholder="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                    <div class="flex justify-between my-4">
+                        <div class="checkbox">
+                            <input type="checkbox" id="chekcbox1" checked>
+                            <label for="chekcbox1"><span class="checkbox-icon"></span>Remember Me</label>
+                        </div>
+                        <a href="#"> Forgot Your Password? </a>
+                    </div>
+                    <button type="submit" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Logout</button>
+                    <div class="text-center mt-5 space-x-2">
+                        <p class="text-base"> Not registered? <a href="/" class=""> Create a account </a></p>
+                    </div>
+                </form>-->
+				
+				<form @submit.prevent="updateFollowing">
 					<div class="add-btn">
 					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
+					
 					<span style="color: white; font-size: 27px;"><b>11 Post</b></span>
+					
 					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
+					
 					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
+					
+
 					<a href="" title="" data-ripple=""><button style="background-color: #ffc0cb; border: #ffc0cb;">Follow</button></a>
 					
 					</div>
@@ -27,9 +48,9 @@
 						<div class="col-lg-2 col-sm-3">
 							<div class="user-avatar">
 								<figure>
-									        <img  alt="">
+									        
 
-									<img v-bind:src="'http://127.0.0.1:8000/' + userProfile.userimage" v-bind:style="'height:250px; width: 100px;'" alt="">
+									<img v-bind:src="'http://127.0.0.1:8000/' + userProfile.profileimage" v-bind:style="'height:250px; width: 100px;'" alt="">
 								<!--	<form class="edit-phto">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
@@ -171,6 +192,9 @@ export default {
                     console.log("errors: " + error)
                     //console.error(error.response.data)
                 })
+		},
+		updateFollowing() {
+			
 		}
 	},
 }

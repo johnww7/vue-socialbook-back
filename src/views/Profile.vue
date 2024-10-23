@@ -167,6 +167,7 @@ export default {
     },
 	mounted() {
 		this.getProfile()
+		//this.userPostLength()
 	},
 	methods : {
 		async getProfile() {
@@ -192,9 +193,16 @@ export default {
                     console.log("errors: " + error)
                     //console.error(error.response.data)
                 })
+				this.userPostLength()
 		},
 		updateFollowing() {
 			
+		},
+		userPostLength() {
+			console.log("whats user posts data: " + JSON.stringify(this.userPost))
+			for(let elem in this.userPost) {
+				console.log("whats each post: " + this.userPost[elem]["user"])
+			}
 		}
 	},
 }

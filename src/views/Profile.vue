@@ -24,7 +24,10 @@
 					<div class="add-btn">
 					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
 					
-					<span style="color: white; font-size: 27px;"><b>11 Post</b></span>
+					<span v-if="lengthOfUserPost = 0" style="color: white; font-size: 27px;"><b>No Post</b></span>
+					<span v-else-if="lengthOfUserPost = 1" style="color: white; font-size: 27px;"><b>{{lengthOfUserPost}} Post</b></span>
+					<span v-else style="color: white; font-size: 27px;"><b>{{lengthOfUserPost}} Posts</b></span>
+
 					
 					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
 					
@@ -64,7 +67,7 @@
 							<div class="timeline-info">
 								<ul>
 									<li class="admin-name">
-									  <h5 style="color: black;white-space: nowrap; width: 110px; font-size: 27px;"><b>@username</b><!--<i class="fa fa-check-circle" style="color: #48dbfb;" aria-hidden="true"></i>--></h5>
+									  <h5 style="color: black;white-space: nowrap; width: 110px; font-size: 27px;"><b>@{{username}}</b><!--<i class="fa fa-check-circle" style="color: #48dbfb;" aria-hidden="true"></i>--></h5>
 									  <!--<span>Group Admin</span>-->
 									</li>
 									<!--<li>
@@ -160,6 +163,8 @@ export default {
             userProfile:[],
 			userPost:[],
             followerCount:[],
+			username: this.$route.params.user_name,
+			lengthOfUserPost: '', 
         }
     }, 
     computed: {
@@ -196,13 +201,22 @@ export default {
 				this.userPostLength()
 		},
 		updateFollowing() {
-			
+			this.userPostLength()	
 		},
 		userPostLength() {
 			console.log("whats user posts data: " + JSON.stringify(this.userPost))
+			let postOfUser = []
 			for(let elem in this.userPost) {
 				console.log("whats each post: " + this.userPost[elem]["user"])
+				if(this.userPost[elem]["user"] === this.username) {
+					postOfUser.push(this.userPost[elem])
+				}
 			}
+
+			console.log("What's in post of User: " + JSON.stringify(postOfUser))
+
+			this.lengthOfUserPost = postOfUser.length
+
 		}
 	},
 }

@@ -168,7 +168,7 @@ export default {
         }
     }, 
     computed: {
-        ...mapState(useAuthStore, ['getToken']),
+        ...mapState(useAuthStore, ['getToken', 'getUser']),
     },
 	mounted() {
 		this.getProfile()
@@ -199,6 +199,7 @@ export default {
                     //console.error(error.response.data)
                 })
 				this.userPostLength()
+				this.userFollowerCount()
 		},
 		updateFollowing() {
 			this.userPostLength()	
@@ -217,6 +218,32 @@ export default {
 
 			this.lengthOfUserPost = postOfUser.length
 
+		},
+		userFollowerCount(){
+			console.log("Whats followers count: " + JSON.stringify(this.followerCount))
+
+			let user = this.username
+			let follower = this.getUser
+
+			console.log("Who is user: " + user + " Who is follower: " + follower)
+			
+			let buttonText = ''
+			let countOfFollowers = (this.followerCount).filter(value => value.follower.includes(follower) && value.user.includes(user))
+			console.log("filter count of followers: " + JSON.stringify(countOfFollowers))
+		
+			if(countOfFollowers) {
+				buttonText = 'Unfollow'
+			}
+			else {
+				buttonText = 'Follow'
+			}
+
+			console.log("whats button text: " + buttonText)
+
+			let userFollowers = (this.followerCount).filter(value => value.user.includes(this.username))
+			let userFollowing = (this.followerCount).filter(value => value.follower.includes(this.username))
+
+			console.log("whats user followers: " + userFollowers.length + " whats user following: " + userFollowing.length)
 		}
 	},
 }

@@ -24,17 +24,19 @@
 					<div class="add-btn">
 					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
 					
-					<span v-if="lengthOfUserPost = 0" style="color: white; font-size: 27px;"><b>No Post</b></span>
+					<!--<span v-if="lengthOfUserPost = 0" style="color: white; font-size: 27px;"><b>No Post</b></span>
 					<span v-else-if="lengthOfUserPost = 1" style="color: white; font-size: 27px;"><b>{{lengthOfUserPost}} Post</b></span>
-					<span v-else style="color: white; font-size: 27px;"><b>{{lengthOfUserPost}} Posts</b></span>
+					<span v-else style="color: white; font-size: 27px;"><b>{{lengthOfUserPost}} Posts</b></span>-->
 
+					<span style="color: white; font-size: 27px;"><b>{{userPostLength}}</b></span>
 					
-					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
-					
-					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
+					<span style="color: white; font-size: 27px;"><b>{{userFollowerCount}}</b></span>
+
+
+					<span style="color: white; font-size: 27px;"><b>{{userFollowingCount}} following</b></span>
 					
 
-					<a href="" title="" data-ripple=""><button style="background-color: #ffc0cb; border: #ffc0cb;">Follow</button></a>
+					<a href="" title="" data-ripple=""><button style="background-color: #ffc0cb; border: #ffc0cb;">{{userButtonText}}</button></a>
 					
 					</div>
 				</form>
@@ -165,45 +167,18 @@ export default {
             followerCount:[],
 			username: this.$route.params.user_name,
 			lengthOfUserPost: '', 
+			buttonText: '',
+			userFollowers: 0,
+			userFollowing: 0,
         }
     }, 
     computed: {
         ...mapState(useAuthStore, ['getToken', 'getUser']),
-    },
-	mounted() {
-		this.getProfile()
-		//this.userPostLength()
-	},
-	methods : {
-		async getProfile() {
-			const username = this.$route.params.user_name
-			console.log("username from route: " + username)
 
-			await axios
-
-				.get(`http://127.0.0.1:8000/api/profile/${username}`)
-				.then(response =>{
-					console.log("what is profile: " + JSON.stringify(response.data))
-					this.userProfile = response.data.user_profile
-					console.log("what is user profile: " + JSON.stringify(this.userProfile))
-					this.userPost = response.data.user_post
-					console.log("what is user post: " + JSON.stringify(this.userPost))
-					this.followerCount = response.data.follower_count
-					console.log("what is follower count: " + JSON.stringify(this.followerCount))
-				
-				
-				
-				})
-				.catch(error => {
-                    console.log("errors: " + error)
-                    //console.error(error.response.data)
-                })
-				this.userPostLength()
-				this.userFollowerCount()
-		},
-		updateFollowing() {
-			this.userPostLength()	
-		},
+	/*	updateFollowing() {
+			this.userPostLength()
+			this.userFollowerCount()	
+		},*/
 		userPostLength() {
 			console.log("whats user posts data: " + JSON.stringify(this.userPost))
 			let postOfUser = []
@@ -216,8 +191,25 @@ export default {
 
 			console.log("What's in post of User: " + JSON.stringify(postOfUser))
 
-			this.lengthOfUserPost = postOfUser.length
+			//this.lengthOfUserPost = postOfUser.length
 
+			if(postOfUser.length == 0) {
+				this.lengthOfUserPost = 'No Post'
+				console.log("whats this length of posts: " + this.lengthOfUserPost)
+
+			}
+			else if(postOfUser.length == 1) {
+				 this.lengthOfUserPost = postOfUser.length + ' Post'
+				console.log("whats this length of posts: " + this.lengthOfUserPost)
+
+			}
+			else {
+				 this.lengthOfUserPost = postOfUser.length + ' Posts'
+				console.log("whats this length of posts: " + this.lengthOfUserPost)
+
+			}
+			return this.lengthOfUserPost 
+			//console.log("whats this length of posts: " + this.lengthOfUserPost)
 		},
 		userFollowerCount(){
 			console.log("Whats followers count: " + JSON.stringify(this.followerCount))
@@ -226,25 +218,105 @@ export default {
 			let follower = this.getUser
 
 			console.log("Who is user: " + user + " Who is follower: " + follower)
+
+			let userFollowersCount = ((this.followerCount).filter(value => value.user.includes(this.username))).length
 			
-			let buttonText = ''
+			if(userFollowersCount == 0 || userFollowersCount == 1){
+				this.userFollowers = userFollowersCount + ' follower'
+			}
+			else {
+				this.userFollowers = userFollowersCount + ' followers'
+			}
+			
+			return this.userFollowers
+
+			
+		},
+		userFollowingCount() {
+			let user = this.username
+			let follower = this.getUser
+
+			console.log("Who is user: " + user + " Who is follower: " + follower)
+			this.userFollowing = ((this.followerCount).filter(value => value.follower.includes(this.username))).length
+
+			return this.userFollowing
+
+		},
+		userButtonText() {
+			let user = this.username
+			let follower = this.getUser
+
+			console.log("Who is user: " + user + " Who is follower: " + follower)
+			
+			
 			let countOfFollowers = (this.followerCount).filter(value => value.follower.includes(follower) && value.user.includes(user))
 			console.log("filter count of followers: " + JSON.stringify(countOfFollowers))
 		
+
 			if(countOfFollowers) {
-				buttonText = 'Unfollow'
+				this.buttonText = 'Unfollow'
 			}
 			else {
-				buttonText = 'Follow'
+				this.buttonText = 'Follow'
 			}
-
-			console.log("whats button text: " + buttonText)
-
-			let userFollowers = (this.followerCount).filter(value => value.user.includes(this.username))
-			let userFollowing = (this.followerCount).filter(value => value.follower.includes(this.username))
-
-			console.log("whats user followers: " + userFollowers.length + " whats user following: " + userFollowing.length)
+			
+			return this.buttonText
 		}
+    },
+	mounted() {
+		this.getProfile()
+		//this.userPostLength()
+	},
+/*beforeUpdate(){
+		this.userPostLength()
+		this.userFollowerCount()
+	},*/
+	methods: {
+		async getProfile() {
+			const username = this.$route.params.user_name
+			console.log("username from route: " + username)
+
+			await axios
+
+				.get(`http://127.0.0.1:8000/api/profile/${username}`)
+				.then(response =>{
+					/*console.log("what is profile: " + JSON.stringify(response.data))
+					this.userProfile = response.data.user_profile
+					console.log("what is user profile: " + JSON.stringify(this.userProfile))
+					this.userPost = response.data.user_post
+					console.log("what is user post: " + JSON.stringify(this.userPost))
+					this.followerCount = response.data.follower_count
+					console.log("what is follower count: " + JSON.stringify(this.followerCount))
+					*/
+					const res = response.data
+					for (const property in res) {
+                        console.log(`${property}: ${res[property]}`)
+                        if(property === 'user_profile') {
+                            this.userProfile = res[property]
+                            console.log("usr profile: " + JSON.stringify(this.userProfile))
+                        }
+                        else if(property === 'user_post') {
+                            this.userPost = res[property]
+                            console.log("user posts: " + JSON.stringify(this.userPost))
+                        }
+                        else {
+                            this.followerCount = res[property]
+                            console.log("follower count: " + JSON.stringify(this.followerCount))
+                        }
+                        //console.log("property: " + res[property].)
+                       console.log(res[property])
+                    }
+					//this.userPostLength()
+					//this.userFollowerCount()
+				
+				})
+				.catch(error => {
+                    console.log("errors: " + error)
+                    //console.error(error.response.data)
+                })
+				
+		},
+		
 	},
 }
 </script>

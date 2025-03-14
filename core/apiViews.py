@@ -74,7 +74,41 @@ class api_profile(APIView):
         #user_object = User.objects.get()
         user_object = request.user
         user_profile = Profile.objects.filter(user=request.user).get()
+<<<<<<< HEAD
         print('User profile: ', user_object)
+=======
+        print('User profile: ', user_profile)
+        user_posts = Post.objects.all()
+        #user_posts = Post.objects.filter(user=request.user)
+        print('User posts: ', user_posts)
+        follower_count = FollowersCount.objects.all()
+        #print('Follower count: ', follower_count)
+
+        user_profile_serializer = ProfileSerializer(user_profile)
+        user_posts_serializer = PostSerializer(user_posts, many=True)
+        follower_count_serializer = FollowersCountSerializer(follower_count, many=True)
+
+        return Response({
+            
+            "user_profile": user_profile_serializer.data,
+            "user_post": user_posts_serializer.data,
+            "follower_count": follower_count_serializer.data
+        })
+
+class api_profile_user(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, format=None):
+        #user_object = User.objects.get(username=request.data)
+        print('Whats user: ', type(pk))
+        print('All users: ', User.objects.all())
+        #user_object = User.objects.get()
+        #user_object = request.data.user
+        user_object = pk
+        user_profile = Profile.objects.filter(user__username=pk).get()
+        #user_profile = Profile.objects.all()
+        print('User profile: ', user_profile)
+>>>>>>> 1e6215ba83448befd90abba2742d9df094c4b8d2
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
         print('User posts: ', user_posts)

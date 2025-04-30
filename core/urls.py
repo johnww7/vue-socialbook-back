@@ -2,11 +2,7 @@ from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import LoginView, LogoutView, UserDetailsView
 from django.urls import path
 from . import views
-<<<<<<< HEAD
-from core.apiViews import api_upload, api_like_post, api_profile, api_follow, api_settings, api_createprofile,api_user_suggestion
-=======
 from core.apiViews import api_upload, api_like_post, api_profile, api_follow, api_settings, api_createprofile,api_user_suggestion,api_profile_user
->>>>>>> 1e6215ba83448befd90abba2742d9df094c4b8d2
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,10 +22,7 @@ urlpatterns = [
     path('api/upload', api_upload.as_view() , name='api_upload'),
     path('api/like-post', api_like_post.as_view()  , name='api_like_post'),
     path('api/profile/', api_profile.as_view() , name='api_profile'),
-<<<<<<< HEAD
-=======
     path('api/profile/<str:pk>', api_profile_user.as_view() , name='api_profile_user'),
->>>>>>> 1e6215ba83448befd90abba2742d9df094c4b8d2
     path('api/follow', api_follow.as_view() , name='api_follow'),
     path('api/settings', api_settings.as_view() , name='api_settings'),
     path('api/create-profile/<str:pk>', api_createprofile.as_view() , name='api_createprofile'),

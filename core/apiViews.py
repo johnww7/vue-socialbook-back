@@ -74,9 +74,6 @@ class api_profile(APIView):
         #user_object = User.objects.get()
         user_object = request.user
         user_profile = Profile.objects.filter(user=request.user).get()
-<<<<<<< HEAD
-        print('User profile: ', user_object)
-=======
         print('User profile: ', user_profile)
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
@@ -108,7 +105,6 @@ class api_profile_user(APIView):
         user_profile = Profile.objects.filter(user__username=pk).get()
         #user_profile = Profile.objects.all()
         print('User profile: ', user_profile)
->>>>>>> 1e6215ba83448befd90abba2742d9df094c4b8d2
         user_posts = Post.objects.all()
         #user_posts = Post.objects.filter(user=request.user)
         print('User posts: ', user_posts)

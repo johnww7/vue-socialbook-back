@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 ]
 
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 MIDDLEWARE = [
@@ -159,13 +159,13 @@ REST_FRAMEWORK = {
 }
 
 #AUTH_USER_MODEL='core.Profile'
-<<<<<<< HEAD
-ACCOUNT_LOGIN_METHODS={"username"}
+
+ACCOUNT_LOGIN_METHODS={'username'}
 #ACCOUNT_AUTHENTICATION_METHOD='username'
-=======
+
 
 ACCOUNT_AUTHENTICATION_METHOD='username'
->>>>>>> 1e6215ba83448befd90abba2742d9df094c4b8d2
+
 ACCOUNT_EMAIL_REQUIRED=False
 ACCOUNT_EMAIL_VERIFICATION='none'
 ACCCOUNT_USERNANME_REQUIRED=True

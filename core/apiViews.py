@@ -126,17 +126,19 @@ class api_user_suggestion(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         all_users = User.objects.all()
-        print('whats User users: ', User.objects.all())
-        print('whats profiles: ', Profile.objects.all())
+        print('whats User users from api_user_suggestion: ', User.objects.all())
+        print('whats profiles form api_user_suggestion: ', Profile.objects.all())
         user_following = FollowersCount.objects.all()
         feed_lists = Post.objects.all()
         profile_lists = Profile.objects.all()
+        print('whats api_user_suggestion user following: ', user_following)
 
         user_following_serializer = FollowersCountSerializer(user_following, many=True)
         feed_list_serializer = PostSerializer(feed_lists, many=True)
         profile_list_serializer = ProfileSerializer(profile_lists, many=True)
         user_serializer = UserSerializer(all_users, many=True)
         print("suggestion profile serializer: ", profile_list_serializer.data)
+        print("whats followers serialization:", user_following_serializer.data)
 
         return Response({
             "followers": user_following_serializer.data,
@@ -153,8 +155,9 @@ class api_follow(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request, format=None):
-        follower = request.data.follower
-        user = request.data.user
+        print("Whats request for follow: ", request.data)
+        follower = request.data["follower"]
+        user = request.data["user"]
 
         if FollowersCount.objects.filter(follower=follower, user=user).first():
             follower_count = FollowersCount.objects.get(follower=follower, user=user)

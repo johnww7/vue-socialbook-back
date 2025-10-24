@@ -31,15 +31,23 @@ def index(request):
 
     # user suggestion starts
     all_users = User.objects.all()
+    print("Whats all_users", all_users)
     user_following_all = []
+
+    print("whats in user_following: ", user_following)
 
     for user in user_following:
         user_list = User.objects.get(username=user.user)
         user_following_all.append(user_list)
 
+    print("Whats user_following_all: ", user_following_all)
+
     new_suggestions_list = [x for x in list(all_users) if (x not in list(user_following_all))]
+    print("whats new_suggestions_list: ", new_suggestions_list)
     current_user = User.objects.filter(username=request.user.username)
+    print("whats current_user: ", current_user)
     final_suggestions_list = [x for x in list(new_suggestions_list) if (x not in list(current_user))]
+    print("whats final_suggestion_list: ", final_suggestions_list)
     random.shuffle(final_suggestions_list)
 
     username_profile = []
